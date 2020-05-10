@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package art;
+
+service FaultService {
+  rpc Create(CreateRequest) returns (Empty) {}
+  rpc Delete(DeleteRequest) returns (Empty) {}
+}
+
+message CreateRequest {
+  string svc = 1;
+  string uri = 2;
+  double percent = 3;
+}
+
+message DeleteRequest { string svc = 1; }
+
+
+message Empty {}
