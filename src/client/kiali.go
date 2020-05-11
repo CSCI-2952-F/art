@@ -38,9 +38,9 @@ func NewKialiClient(addr string) *KialiClient {
 
 func readConfig(host string) *KialiClient {
 	defaultClient := KialiClient{
-		Host:     fmt.Sprintf("http://%v/kiali/api", host),
-		Username: "",
-		Password: "",
+		Host:     fmt.Sprintf("http://%v/api", host),
+		Username: "admin",
+		Password: "admin",
 		Token:    "",
 	}
 

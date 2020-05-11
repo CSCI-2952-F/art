@@ -4,23 +4,19 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"net"
-	"net/http"
-	"os"
-	"time"
-
 	pb "github.com/triplewy/art/src/faultservice/genproto"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	healthpb "google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/status"
+	"net"
+	"os"
 )
 
 var (
 	port        string
 	kubeconfig  string
-	tracingAddr string
 
 	zLogger *zap.Logger
 	sugar   *zap.SugaredLogger
@@ -32,11 +28,6 @@ func init() {
 	port = "8080"
 	if value := os.Getenv("PORT"); value != "" {
 		port = value
-	}
-
-	tracingAddr = "tracing.istio-system:80"
-	if value := os.Getenv("TRACING_ADDR"); value != "" {
-		tracingAddr = value
 	}
 
 	zLogger, _ = zap.NewProduction()
@@ -88,30 +79,6 @@ func newServer(kubeconfig string) *server {
 		ic: ic,
 		kc: kc,
 	}
-}
-
-func (s *server) CheckJaeger() {
-	ticker := time.NewTicker(10 * time.Second)
-	failures := 0
-	for range ticker.C {
-		resp, err := http.Get(fmt.Sprintf("http://%v/", tracingAddr))
-		if err == nil && resp.StatusCode == 200 {
-			failures = 0
-			continue
-		}
-		failures++
-		sugar.Infof("jaeger health check failed. failures: %v", failures)
-		if failures < 3 {
-			continue
-		}
-		sugar.Infof("deleting istio-tracing pod...")
-		if err := s.kc.DeletePod("istio-system", "istio-tracing"); err != nil {
-			sugar.Fatal(err)
-		}
-		sugar.Infof("deleted istio-tracing pod")
-	}
-
-	ticker.Stop()
 }
 
 func (s *server) Check(ctx context.Context, req *healthpb.HealthCheckRequest) (*healthpb.HealthCheckResponse, error) {

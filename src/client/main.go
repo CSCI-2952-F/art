@@ -27,7 +27,7 @@ var (
 func init() {
 	flag.StringVar(&jaegerAddr, "jaeger", "cs1380.cs.brown.edu:5000", "address of jaeger service")
 	flag.StringVar(&faultAddr, "fault", "cs1380.cs.brown.edu:5000", "address of fault service")
-	flag.StringVar(&kialiAddr, "kiali", "cs1380.cs.brown.edu", "address of kiali service")
+	flag.StringVar(&kialiAddr, "kiali", "cs1380.cs.brown.edu/kiali", "address of kiali service")
 
 	zLogger, _ = zap.NewProduction()
 	sugar = zLogger.Sugar()
