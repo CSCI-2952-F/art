@@ -15,7 +15,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
         - name: server
-          image: faultservice
+          image: yushuf/faultservice
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
