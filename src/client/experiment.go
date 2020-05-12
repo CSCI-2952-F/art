@@ -35,7 +35,7 @@ func queryService(path, svc string) error {
 
 	// Get and save at most 50 traces for last minute for each operation
 	for _, op := range ops {
-		traces, err := jc.QueryTraces(svc, op, time.Now().Add(-60*time.Second), 30)
+		traces, err := jc.QueryTraces(svc, op, time.Now().Add(-60*time.Second), 60)
 		if err != nil {
 			return err
 		}

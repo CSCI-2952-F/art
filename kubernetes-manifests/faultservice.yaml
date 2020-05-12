@@ -75,3 +75,14 @@ roleRef:
   kind: ClusterRole
   name: faultservice-role
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: faultservice
+  namespace: default
+spec:
+  grpc: True
+  prefix: /art.FaultService/
+  rewrite: /art.FaultService/
+  service: faultservice:5000

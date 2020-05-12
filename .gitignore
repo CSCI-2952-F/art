@@ -8,3 +8,5 @@ pkg/
 .vs/
 .idea
 vendor/
+data/
+config.json
