@@ -57,15 +57,15 @@ func main() {
 	})
 
 	shell.AddCmd(&ishell.Cmd{
-		Name: "start",
+		Name: "kiali",
 		Func: start,
-		Help: "starts fault injection experiment",
+		Help: "starts fault injection experiment using kiali",
 	})
 
 	shell.AddCmd(&ishell.Cmd{
 		Name: "experiment",
 		Func: experiment,
-		Help: "starts a full-fledged experiment",
+		Help: "starts a full-fledged experiment using sub-graph mining",
 	})
 
 	shell.AddCmd(&ishell.Cmd{

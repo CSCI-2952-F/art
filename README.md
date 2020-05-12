@@ -7,6 +7,25 @@ ART is a framework for automated resilience testing on microservices deployed on
 
 ## Usage
 
+### Build
+Run ```make``` at the top level directory to build the client binary.
+
+Dependencies:
+- python3/pip3
+- go 1.14
+
+If ```make``` is successful, you can run the client binary with ```./bin/client```. By default, the client library
+will connect to a test cluster we already have running so all tracing and fault injection functionality
+should be already set up.
+
+Shell commands:
+- ```experiment``` - Runs a full experiment as described from the paper
+- ```continue``` - Continues an experiment in case of temporary failures
+- ```kiali``` - Uses kiali instead of sub-graph mining to conduct an experiment
+
+The sections below are for deploying ART on your own application cluster. You can disregard them if you are
+simply demo-ing ART with our test cluster.
+
 ### Fault Service
 ART requires the fault service be deployed in the application cluster.
 This allows for the ART client to apply fault injections on the cluster without having the necessary
